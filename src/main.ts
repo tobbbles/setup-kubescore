@@ -20,9 +20,15 @@ async function getStableVersion(): Promise<string> {
 function getDownloadURL(version: string): string {
   switch (os.type()) {
     case 'Linux':
-      return `${downloadPathRoot}/v${version}/kube-score_${version}_linux_amd64`
+      return `${downloadPathRoot}/${version}/kube-score_${version.replace(
+        'v',
+        ''
+      )}_linux_amd64`
     case 'Darwin':
-      return `${downloadPathRoot}/v${version}/kube-score_${version}_darwin_amd64`
+      return `${downloadPathRoot}/${version}/kube-score_${version.replace(
+        'v',
+        ''
+      )}_darwin_amd64`
     default:
       return ''
   }
@@ -43,7 +49,9 @@ async function download(version: string): Promise<string> {
     try {
       downloadedToolPath = await toolCache.downloadTool(downloadURL)
     } catch (exception) {
-      throw new Error(`Failed to download Helm from location ${downloadURL}`)
+      throw new Error(
+        `Failed to download kube-score from location ${downloadURL}`
+      )
     }
 
     fs.chmodSync(downloadedToolPath, '777')

@@ -5,7 +5,7 @@ inputs:
   version:
     required: false
     description: 'kube-score version'
-    # default: 'default value if applicable'
+    default: 'latest'
 runs:
   using: 'node12'
   main: 'dist/index.js'
