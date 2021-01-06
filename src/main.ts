@@ -65,7 +65,7 @@ async function download(version: string): Promise<string> {
 }
 
 async function run(): Promise<void> {
-  let version = core.getInput('version', {required: true})
+  let version = core.getInput('version', {required: false})
   if (version.toLocaleLowerCase() === 'latest') {
     version = await getStableVersion()
   } else if (!version.toLocaleLowerCase().startsWith('v')) {
