@@ -59,9 +59,9 @@ function getStableVersion() {
 function getDownloadURL(version) {
     switch (os.type()) {
         case 'Linux':
-            return `${downloadPathRoot}/v${version}/kube-score_${version}_linux_amd64`;
+            return `${downloadPathRoot}/${version}/kube-score_${version.replace('v', '')}_linux_amd64`;
         case 'Darwin':
-            return `${downloadPathRoot}/v${version}/kube-score_${version}_darwin_amd64`;
+            return `${downloadPathRoot}/${version}/kube-score_${version.replace('v', '')}_darwin_amd64`;
         default:
             return '';
     }
@@ -80,7 +80,7 @@ function download(version) {
                 downloadedToolPath = yield toolCache.downloadTool(downloadURL);
             }
             catch (exception) {
-                throw new Error(`Failed to download Helm from location ${downloadURL}`);
+                throw new Error(`Failed to download kube-score from location ${downloadURL}`);
             }
             fs.chmodSync(downloadedToolPath, '777');
             const unzippedToolPath = yield toolCache.extractZip(downloadedToolPath);
@@ -94,7 +94,7 @@ function download(version) {
 }
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        let version = core.getInput('version', { required: true });
+        let version = core.getInput('version', { required: false });
         if (version.toLocaleLowerCase() === 'latest') {
             version = yield getStableVersion();
         }
