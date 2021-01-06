@@ -53,15 +53,14 @@ function getStableVersion() {
         return new Promise((resolve, _reject) => {
             resolve(stableVersion);
         });
-        // return stableHelmVersion
     });
 }
 function getDownloadURL(version) {
     switch (os.type()) {
         case 'Linux':
-            return `${downloadPathRoot}/${version}/kube-score_${version.replace('v', '')}_linux_amd64`;
+            return `${downloadPathRoot}/${version}/kube-score_${version.replace('v', '')}_linux_amd64.tar.gz`;
         case 'Darwin':
-            return `${downloadPathRoot}/${version}/kube-score_${version.replace('v', '')}_darwin_amd64`;
+            return `${downloadPathRoot}/${version}/kube-score_${version.replace('v', '')}_darwin_amd64.tar.gz`;
         default:
             return '';
     }
@@ -83,7 +82,7 @@ function download(version) {
                 throw new Error(`Failed to download kube-score from location ${downloadURL}`);
             }
             fs.chmodSync(downloadedToolPath, '777');
-            const unzippedToolPath = yield toolCache.extractZip(downloadedToolPath);
+            const unzippedToolPath = yield toolCache.extractTar(downloadedToolPath);
             cachedToolpath = yield toolCache.cacheDir(unzippedToolPath, toolName, version);
         }
         const cachedBinaryPath = `${cachedToolpath}/kube-score`;

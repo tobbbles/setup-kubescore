@@ -9,12 +9,12 @@ const toolName = 'helm'
 const stableVersion = 'v1.10.0'
 
 const downloadPathRoot = 'https://github.com/zegl/kube-score/releases/download'
+
 async function getStableVersion(): Promise<string> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return new Promise((resolve, _reject) => {
     resolve(stableVersion)
   })
-  // return stableHelmVersion
 }
 
 function getDownloadURL(version: string): string {
@@ -23,12 +23,12 @@ function getDownloadURL(version: string): string {
       return `${downloadPathRoot}/${version}/kube-score_${version.replace(
         'v',
         ''
-      )}_linux_amd64`
+      )}_linux_amd64.tar.gz`
     case 'Darwin':
       return `${downloadPathRoot}/${version}/kube-score_${version.replace(
         'v',
         ''
-      )}_darwin_amd64`
+      )}_darwin_amd64.tar.gz`
     default:
       return ''
   }
@@ -56,7 +56,7 @@ async function download(version: string): Promise<string> {
 
     fs.chmodSync(downloadedToolPath, '777')
 
-    const unzippedToolPath = await toolCache.extractZip(downloadedToolPath)
+    const unzippedToolPath = await toolCache.extractTar(downloadedToolPath)
     cachedToolpath = await toolCache.cacheDir(
       unzippedToolPath,
       toolName,
