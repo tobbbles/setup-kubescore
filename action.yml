@@ -1,5 +1,6 @@
 name: 'setup-kubescore'
 description: 'Setup the kube-score CLI tool'
+icon: arrow-down-circle
 author: 'tobbbles'
 inputs:
   version:
