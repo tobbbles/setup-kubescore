@@ -1,11 +1,10 @@
 import * as core from '@actions/core'
 import path from 'path'
 
-import { download, getStableVersion } from './download'
-
+import {download, getStableVersion} from './download'
 
 async function run(): Promise<void> {
-  let version = core.getInput('version', { required: false })
+  let version = core.getInput('version', {required: false})
   if (version.toLocaleLowerCase() === 'latest') {
     version = await getStableVersion()
   } else if (!version.toLocaleLowerCase().startsWith('v')) {

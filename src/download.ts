@@ -15,23 +15,30 @@ export async function getStableVersion(): Promise<string> {
   })
 }
 
-export function getDownloadURL(version: string): Promise<string> {
+export async function getDownloadURL(version: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     switch (os.type()) {
       case 'Linux':
-        resolve(`${downloadPathRoot}/${version}/kube-score_${version.replace(
-          'v',
-          ''
-        )}_linux_amd64.tar.gz`)
-  
+        resolve(
+          `${downloadPathRoot}/${version}/kube-score_${version.replace(
+            'v',
+            ''
+          )}_linux_amd64.tar.gz`
+        )
+        break
+
       case 'Darwin':
-        resolve(`${downloadPathRoot}/${version}/kube-score_${version.replace(
-          'v',
-          ''
-        )}_darwin_amd64.tar.gz`)
-        
+        resolve(
+          `${downloadPathRoot}/${version}/kube-score_${version.replace(
+            'v',
+            ''
+          )}_darwin_amd64.tar.gz`
+        )
+        break
+
       default:
-        reject('unsupported operating system')
+        reject(new Error('unsupported operating system'))
+        break
     }
   })
 }
@@ -46,7 +53,7 @@ export async function download(version: string): Promise<string> {
   // Download
   if (!cachedToolpath) {
     let downloadedToolPath: string
-    
+
     const downloadURL = await getDownloadURL(version)
 
     try {
