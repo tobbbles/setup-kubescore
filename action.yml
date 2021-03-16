@@ -1,6 +1,8 @@
-name: 'setup-kubescore'
+name: 'Setup ubescore'
 description: 'Setup the kube-score CLI tool'
-icon: arrow-down-circle
+branding:
+  icon: arrow-down-circle
+  color: blue
 author: 'tobbbles'
 inputs:
   version:
