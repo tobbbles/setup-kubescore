@@ -1,4 +1,4 @@
-name: 'Setup ubescore'
+name: 'Setup Kubescore'
 description: 'Setup the kube-score CLI tool'
 branding:
   icon: arrow-down-circle
